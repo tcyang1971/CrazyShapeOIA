@@ -12,15 +12,21 @@ import kotlinx.android.synthetic.main.activity_main.*
 public final class MyAppGlideModule : AppGlideModule()
 
 class MainActivity : AppCompatActivity() {
+
+    var Flag:Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         Toast.makeText(baseContext, "作者：tcyang", Toast.LENGTH_LONG).show()
+
         GlideApp.with(this)
             .load(R.drawable.cover)
             .override(800, 600)
             .into(imgTitle)
+
+        RndShape()
 
 
         imgNext.setOnLongClickListener(object : View.OnLongClickListener {
@@ -30,5 +36,24 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
         })
+
+        imgNext.setOnClickListener(object:View.OnClickListener{
+            override fun onClick(p0: View?) {
+                RndShape()
+            }
+        })
+
     }
+
+    fun RndShape(){
+        Flag=(1..4).random()
+        when(Flag){
+            1->imgNext.setImageResource(R.drawable.circle)
+            2->imgNext.setImageResource(R.drawable.square)
+            3->imgNext.setImageResource(R.drawable.star)
+            4->imgNext.setImageResource(R.drawable.triangle)
+        }
+    }
+
+
 }
